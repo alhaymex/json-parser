@@ -6,6 +6,7 @@ pub enum Token {
     Comma,
     StringLiteral(String),
     Number(f64),
+    Boolean(bool),
     EOF,
 }
 
@@ -39,7 +40,7 @@ impl Parser {
         self.content[self.cursor..].chars().next()
     }
 
-    fn consume_until_quote(&mut self) -> String {
+    fn consume_string(&mut self) -> String {
         let mut string = String::new();
         while let Some(c) = self.curr_char() {
             if c == '"' {
@@ -63,6 +64,20 @@ impl Parser {
         }
 
         string.parse::<f64>().unwrap_or(0.0)
+    }
+
+    fn consume_boolean(&mut self) -> bool {
+        let mut string = String::new();
+        while let Some(c) = self.curr_char() {
+            if c.is_alphabetic() {
+                string.push(c);
+                self.advance();
+            } else {
+                break;
+            }
+        }
+
+        string == "true"
     }
 
     fn next_token(&mut self) -> Token {
@@ -93,7 +108,7 @@ impl Parser {
 
             '"' => {
                 self.advance();
-                let s = self.consume_until_quote();
+                let s = self.consume_string();
                 self.advance();
                 Token::StringLiteral(s)
             }
@@ -101,6 +116,11 @@ impl Parser {
             '0'..='9' | '-' => {
                 let n = self.consume_number();
                 Token::Number(n)
+            }
+
+            't' | 'f' => {
+                let b = self.consume_boolean();
+                Token::Boolean(b)
             }
 
             _ => panic!("Unexpected character: {c}"),
