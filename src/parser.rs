@@ -2,11 +2,14 @@
 pub enum Token {
     OpenBrace,
     CloseBrace,
+    OpenBracket,
+    CloseBracket,
     Colon,
     Comma,
     StringLiteral(String),
     Number(f64),
     Boolean(bool),
+    Null,
     EOF,
 }
 
@@ -43,7 +46,7 @@ impl Parser {
     fn consume_string(&mut self) -> String {
         let mut string = String::new();
         while let Some(c) = self.curr_char() {
-            if c == '"' {
+            if c == '"' || c == ','{
                 break;
             }
             string.push(c);
@@ -93,6 +96,10 @@ impl Parser {
                 self.advance();
                 Token::OpenBrace
             }
+            '[' => {
+                self.advance();
+                Token::OpenBracket
+            }
             ':' => {
                 self.advance();
                 Token::Colon
@@ -100,6 +107,10 @@ impl Parser {
             '}' => {
                 self.advance();
                 Token::CloseBrace
+            }
+            ']' => {
+                self.advance();
+                Token::CloseBracket
             }
             ',' => {
                 self.advance();
@@ -121,6 +132,15 @@ impl Parser {
             't' | 'f' => {
                 let b = self.consume_boolean();
                 Token::Boolean(b)
+            }
+
+            'n' => {
+                let word = self.consume_string();
+                if word == "null" {
+                    Token::Null
+                } else {
+                    panic!("Unexpected keyword: {}", word)
+                }
             }
 
             _ => panic!("Unexpected character: {c}"),

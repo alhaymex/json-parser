@@ -1,7 +1,18 @@
 {
-  "title": "user",
-  "name": "Max",
-  "age": 44,
-  "height": 177.7,
-  "alive": true
+  "project": "Rust Lexer",
+  "version": 1.2,
+  "is_active": true,
+  "debug_mode": false,
+  "null_value": null,
+  "negative_test": -50,
+  "coordinates": {
+    "lat": 44.5,
+    "lng": -122.1
+  },
+  "tags": [
+    "parser",
+    "rust",
+    "learning"
+  ],
+  "empty_obj": {}
 }
