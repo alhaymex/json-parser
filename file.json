@@ -1,18 +1,52 @@
 {
-  "project": "Rust Lexer",
-  "version": 1.2,
+  "project": "Rust JSON Parser",
+  "version": 1.0,
   "is_active": true,
-  "debug_mode": false,
+  "debug": false,
   "null_value": null,
-  "negative_test": -50,
-  "coordinates": {
-    "lat": 44.5,
-    "lng": -122.1
+
+  "numbers": {
+    "integer": 42,
+    "negative": -15,
+    "float": 3.14159,
+    "zero": 0
   },
-  "tags": [
-    "parser",
-    "rust",
-    "learning"
+
+  "user": {
+    "id": 1001,
+    "name": "Alice",
+    "email": "alice@example.com",
+    "verified": true
+  },
+
+  "tags": ["rust", "parser", "json", "lexer"],
+
+  "nested_array": [
+    [1, 2, 3],
+    [4, 5, 6]
   ],
-  "empty_obj": {}
+
+  "objects": [
+    {
+      "id": 1,
+      "title": "First"
+    },
+    {
+      "id": 2,
+      "title": "Second"
+    }
+  ],
+
+  "deep": {
+    "level1": {
+      "level2": {
+        "level3": {
+          "message": "deep object works"
+        }
+      }
+    }
+  },
+
+  "empty_object": {},
+  "empty_array": []
 }
