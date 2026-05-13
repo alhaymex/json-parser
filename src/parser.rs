@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::lexer::Token;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq)]
 pub enum JsonValue {
     Object(HashMap<String, JsonValue>),
     Array(Vec<JsonValue>),
